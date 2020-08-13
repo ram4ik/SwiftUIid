@@ -7,10 +7,42 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct NumberView: View {
+    let number: Int
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        print("\(number)")
+        return Text("\(number)").font(.largeTitle)
+    }
+}
+
+struct ContentView: View {
+    @State var number = 0
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            if number % 2 == 0 {
+                NumberView(number: 0)
+                    .padding()
+                    .transition(.slide)
+                    .animation(.easeInOut(duration: 2))
+            }
+            
+            NumberView(number: 0)
+                .padding()
+                .id(number)
+                .transition(.slide)
+                .animation(.easeInOut(duration: 2))
+            
+            Spacer()
+            Button(action: {
+                self.number += 1
+            }, label: {
+                Text("Add")
+                    .font(.largeTitle)
+            }).padding()
+        }
     }
 }
 
